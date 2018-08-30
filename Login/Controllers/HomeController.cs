@@ -1,6 +1,10 @@
-﻿using System;
+﻿using Login.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,23 +12,46 @@ namespace Login.Controllers
 {
     public class HomeController : Controller
     {
+
+
         public ActionResult Index()
         {
-            return View();
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                IEnumerable<ApplicationUser> users = db.Users.ToList();
+                ViewBag.Users = users;
+
+                return View();
+            }
         }
 
-        public ActionResult About()
+        private IAuthenticationManager AuthenticationManager
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            get
+            {
+                return HttpContext.GetOwinContext().Authentication;
+            }
         }
 
-        public ActionResult Contact()
+
+
+
+        public ActionResult Account()
         {
-            ViewBag.Message = "Your contact page.";
+            using (ApplicationContext db = new ApplicationContext())
+            {
+                IEnumerable<ApplicationUser> users = db.Users.ToList();
+                ViewBag.Users = users;
+                ViewBag.User = AuthenticationManager.User.Identity.Name.ToString();
+                return View();
+            }
 
-            return View();
+
         }
+
+
+
+
+
     }
 }

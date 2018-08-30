@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Account</title>
+</head>
+<body>
+    <div> 
+        <h3>Добро пожаловать @ViewBag.User</h3>
+        <h3>Вам предоставлен список пользователей</h3>
+        <table>
+            <tr>
+               
+
+</tr>
+            @foreach (var b in ViewBag.Users)
+            {
+                <tr>
+                    <td>Login: @b.UserName</td>
+                   
+
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>
