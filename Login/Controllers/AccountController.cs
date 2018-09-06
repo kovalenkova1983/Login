@@ -82,7 +82,7 @@ namespace Login.Controllers
                     {
                         IsPersistent = true
                     }, claim);
-                    if (String.IsNullOrEmpty(returnUrl))
+                    if (String.IsNullOrEmpty(returnUrl) || returnUrl.IndexOf(' ') >= 0)
                         return RedirectToAction("Account", "Home");
                     return Redirect(returnUrl);
                 }
